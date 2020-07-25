@@ -43,22 +43,30 @@ Sub Copy_Paste_Cards_to_Sheets()
     Banana = 0
     phone = 0
     monkey = 0
+    mouse = 0
     Dim arr1() As String
     Dim arr2() As String
     Dim arr3() As String
     Dim arr4() As String
+    Dim arr5() As String
     For Each cel In SrchRng
         If InStr(1, cel.Value, "DESCRIPTION") > 0 Then
 
             Start = "A" + CStr(cel.Row)
             'Start2 = Trim(Replace(Start, "A", ""))
             Start2 = CStr(cel.Row + 10)
+            Start3 = CStr(cel.Row + 2)
             ReDim Preserve arr1(wallet * 2)
             arr1(wallet * 2) = Start
             
             ReDim Preserve arr4(monkey + 10)
             arr4(monkey + 10) = Start2
             monkey = monkey + 1
+
+            ReDim Preserve arr5(mouse + 2) 'Gives top left corner for thick vertical border
+            arr5(mouse + 2) = Start3
+            mouse = mouse + 1
+
 
         End If
 
@@ -102,6 +110,26 @@ Sub Copy_Paste_Cards_to_Sheets()
         Range("T" + r).Value = "=Sum(T" + r1 + ":T" + r2 + ")"
         
     Next
+
+    For T = 0 To (NumRows - 1)
+        Sheets("CARD DUMP").Select
+        r5 = CStr(arr5(T + 2))
+        r = CStr(arr3(T + 1))
+        r2 = CStr(arr4(T + 10))
+        r3 = CStr((arr4(T + 10) + 1))
+        r6 = CStr((arr5(T + 2)) + 2)
+        Range("G" + r2 + ":H" + r).BorderAround xlContinuous, xlMedium
+        Range("G" + r2 + ":I" + r).BorderAround xlContinuous, xlMedium
+        Range("A" + r3 + ":T" + r3).BorderAround xlContinuous, xlMedium
+        Range("A" + r5 + ":A" + r6).BorderAround xlContinuous, xlMedium
+        Range("A" + r5 + ":L" + r).BorderAround xlContinuous, xlThick
+        Range("A" + r5 + ":T" + r).BorderAround xlContinuous, xlThick
+        Range("A" + r5 + ":J" + r).BorderAround xlContinuous, xlThick
+        Range("K" + r + ":T" + r).BorderAround xlContinuous, xlThick
+        
+
+
+    Next
     For j = 0 To (NumRows - 1)
         Sheets("CARD DUMP").Select
         Range(arr1(j * 2), arr1((j * 2) + 1)).Copy
@@ -110,10 +138,14 @@ Sub Copy_Paste_Cards_to_Sheets()
         Range("A1").Select
         Range("M:T").ColumnWidth = 14
         ActiveSheet.Paste
-        ActiveSheet.Range("A3:T10").BorderAround xlContinuous, xlThick      
+        Range("A3:T5").BorderAround xlContinuous, xlMedium
+        ActiveSheet.Range("A3:T10").BorderAround xlContinuous, xlThick
+        ActiveSheet.Range("A3:T11").BorderAround xlContinuous, xlThick
         Application.ScreenUpdating = True
     Next
     
 
 Application.Goto Reference:=Sheets("SHEET CREATOR").Range("A1")
 End Sub
+
+
