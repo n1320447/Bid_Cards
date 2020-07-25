@@ -93,8 +93,13 @@ Sub Copy_Paste_Cards_to_Sheets()
         r1 = CStr(arr2(n + 1)) 'Lower bound of range to sum
         r2 = CStr(arr4(n + 10)) 'Upper bound of range to sum
         Range("M" + r).Value = "=Sum(M" + r1 + ":M" + r2 + ")"
-       
-       
+        Range("N" + r).Value = "=Sum(N" + r1 + ":N" + r2 + ")"
+        Range("O" + r).Value = "=Sum(O" + r1 + ":O" + r2 + ")"
+        Range("P" + r).Value = "=Sum(P" + r1 + ":P" + r2 + ")"
+        Range("Q" + r).Value = "=Sum(Q" + r1 + ":Q" + r2 + ")"
+        Range("R" + r).Value = "=Sum(R" + r1 + ":R" + r2 + ")"
+        Range("S" + r).Value = "=Sum(S" + r1 + ":S" + r2 + ")"
+        Range("T" + r).Value = "=Sum(T" + r1 + ":T" + r2 + ")"
         
     Next
     For j = 0 To (NumRows - 1)
