@@ -90,7 +90,7 @@ Sub Copy_Paste_Cards_to_Sheets()
             'Debug.Print arr1(wallet * 2)
             'Debug.Print Start2
             'Debug.Print arr4(monkey + 10)
-
+            'comment
         End If
 
         If InStr(1, cel.Value, "CARD TOTAL MC2") > 0 Then
