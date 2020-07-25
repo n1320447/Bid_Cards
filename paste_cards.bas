@@ -174,7 +174,7 @@ Sub Copy_Paste_Cards_to_Sheets()
         Application.ScreenUpdating = True
     Next
     
-   
+   'comment2
 
 Application.Goto Reference:=Sheets("SHEET CREATOR").Range("A1")
 End Sub
