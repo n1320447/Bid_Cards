@@ -141,11 +141,25 @@ Sub Copy_Paste_Cards_to_Sheets()
         Range("A3:T5").BorderAround xlContinuous, xlMedium
         ActiveSheet.Range("A3:T10").BorderAround xlContinuous, xlThick
         ActiveSheet.Range("A3:T11").BorderAround xlContinuous, xlThick
+        Dim rng As Range
+        Set rng = Range("K12:K100000") ' Identify your range
+        d = 0
+            For Each c In rng.Cells
+                If c.Value <> "" And c.Value = "Sub Name:" Then '<--- Will search if the cell is not empty and not equal to phrase. If you want to check empty cells too remove c.value <> ""
+                    'MsgBox (c.Address & "found") '<---- Your code goes here
+                    d = c.Row
+                    Rows(d).EntireRow.Delete
+                    Debug.Print d
+                End If
+            Next c
         Application.ScreenUpdating = True
     Next
     
 
+
+
 Application.Goto Reference:=Sheets("SHEET CREATOR").Range("A1")
 End Sub
+
 
 
