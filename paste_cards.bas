@@ -113,11 +113,11 @@ Sub Copy_Paste_Cards_to_Sheets()
 
     For T = 0 To (NumRows - 1)
         Sheets("CARD DUMP").Select
-        r5 = CStr(arr5(T + 2))
-        r = CStr(arr3(T + 1))
-        r2 = CStr(arr4(T + 10))
-        r3 = CStr((arr4(T + 10) + 1))
-        r6 = CStr((arr5(T + 2)) + 2)
+        r5 = CStr(arr5(T + 2)) 'Gives A3 on each card
+        r = CStr(arr3(T + 1)) 'Cell to put total from sum formula
+        r2 = CStr(arr4(T + 10)) 'Upper bound of range to sum
+        r3 = CStr((arr4(T + 10) + 1)) 'Upper bound of range sum + 1
+        r6 = CStr((arr5(T + 2)) + 2) 'Gives A5 on each card
         Range("G" + r2 + ":H" + r).BorderAround xlContinuous, xlMedium
         Range("G" + r2 + ":I" + r).BorderAround xlContinuous, xlMedium
         Range("A" + r3 + ":T" + r3).BorderAround xlContinuous, xlMedium
@@ -126,6 +126,9 @@ Sub Copy_Paste_Cards_to_Sheets()
         Range("A" + r5 + ":T" + r).BorderAround xlContinuous, xlThick
         Range("A" + r5 + ":J" + r).BorderAround xlContinuous, xlThick
         Range("K" + r + ":T" + r).BorderAround xlContinuous, xlThick
+
+        'fixes fonts below
+        Range("M" + r2 + ":T" + r).NumberFormat = "$#,##0"
         
 
 
@@ -141,6 +144,31 @@ Sub Copy_Paste_Cards_to_Sheets()
         Range("A3:T5").BorderAround xlContinuous, xlMedium
         ActiveSheet.Range("A3:T10").BorderAround xlContinuous, xlThick
         ActiveSheet.Range("A3:T11").BorderAround xlContinuous, xlThick
+        Dim rng1 As Range
+        Set rng1 = Range("A12:A100000") ' Identify your range
+        n = 0
+            For Each k In rng1.Cells
+                If k.Value <> "" And k.Value = "CARD TOTAL MC2:" Then '<--- Will search if the cell is not empty and not equal to phrase. If you want to check empty cells too remove c.value <> ""
+                    'MsgBox (c.Address & "found") '<---- Your code goes here
+                    n = k.Row
+                    n2 = n + 3
+                    n3 = n + 4
+                    'Debug.Print "B" + n2
+                    Range("G" + (CStr(n2))).Value = "Subcontractor in Add/Cut is:"
+                    Range("G" + (CStr(n3))).Value = "Bid Amount in Add/Cut is:"
+                    Range("M" + (CStr(n2))).Value = "(Only Bid Captain fills in, let them know if this does not match bid card.)"
+                    Range("M" + (CStr(n3))).Value = "(Only Bid Captain fills in, let them know if this does not match bid card.)"
+                    Range("G" + (CStr(n2))).Font.Size = "14"
+                    Range("G" + (CStr(n3))).Font.Size = "14"
+                    Range ("K" + (CStr(n2)) + ":L" + (CStr(n2))).Merge
+                    Range ("K" + (CStr(n3)) + ":L" + (CStr(n3))).Merge
+                    Range ("K" + (CStr(n3)) + ":L" + (CStr(n3))).NumberFormat = "$#,##0"
+                    Range ("K" + (CStr(n2)) + ":L" + (CStr(n2))).BorderAround xlContinuous, xlThick
+                    Range ("K" + (CStr(n3)) + ":L" + (CStr(n3))).BorderAround xlContinuous, xlThick
+                    
+                End If
+            Next k
+        'Range ("K" + (CStr(n3)) + ":L" + (CStr(n3))).value = "=FormatConditions.Add(xlvalue,xlNotEqual,M79:T79)"
         Dim rng As Range
         Set rng = Range("K12:K100000") ' Identify your range
         d = 0
@@ -149,9 +177,10 @@ Sub Copy_Paste_Cards_to_Sheets()
                     'MsgBox (c.Address & "found") '<---- Your code goes here
                     d = c.Row
                     Rows(d).EntireRow.Delete
-                    Debug.Print d
+                    'Debug.Print d
                 End If
             Next c
+        
         Application.ScreenUpdating = True
     Next
     
@@ -160,6 +189,7 @@ Sub Copy_Paste_Cards_to_Sheets()
 
 Application.Goto Reference:=Sheets("SHEET CREATOR").Range("A1")
 End Sub
+
 
 
 
