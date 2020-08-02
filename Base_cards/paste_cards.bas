@@ -151,8 +151,8 @@ Sub Copy_Paste_Cards_to_Sheets()
                 If k.Value <> "" And k.Value = "CARD TOTAL MC2:" Then '<--- Will search if the cell is not empty and not equal to phrase. If you want to check empty cells too remove c.value <> ""
                     'MsgBox (c.Address & "found") '<---- Your code goes here
                     n = k.Row
-                    n2 = n + 3
-                    n3 = n + 4
+                    n2 = n + 8
+                    n3 = n + 9
                     'Debug.Print "B" + n2
                     Range("G" + (CStr(n2))).Value = "Subcontractor in Add/Cut is:"
                     Range("G" + (CStr(n3))).Value = "Bid Amount in Add/Cut is:"
@@ -160,11 +160,11 @@ Sub Copy_Paste_Cards_to_Sheets()
                     Range("M" + (CStr(n3))).Value = "(Only Bid Captain fills in, let them know if this does not match bid card.)"
                     Range("G" + (CStr(n2))).Font.Size = "14"
                     Range("G" + (CStr(n3))).Font.Size = "14"
-                    Range ("K" + (CStr(n2)) + ":L" + (CStr(n2))).Merge
-                    Range ("K" + (CStr(n3)) + ":L" + (CStr(n3))).Merge
-                    Range ("K" + (CStr(n3)) + ":L" + (CStr(n3))).NumberFormat = "$#,##0"
-                    Range ("K" + (CStr(n2)) + ":L" + (CStr(n2))).BorderAround xlContinuous, xlThick
-                    Range ("K" + (CStr(n3)) + ":L" + (CStr(n3))).BorderAround xlContinuous, xlThick
+                    Range("K" + (CStr(n2)) + ":L" + (CStr(n2))).Merge
+                    Range("K" + (CStr(n3)) + ":L" + (CStr(n3))).Merge
+                    Range("K" + (CStr(n3)) + ":L" + (CStr(n3))).NumberFormat = "$#,##0"
+                    Range("K" + (CStr(n2)) + ":L" + (CStr(n2))).BorderAround xlContinuous, xlThick
+                    Range("K" + (CStr(n3)) + ":L" + (CStr(n3))).BorderAround xlContinuous, xlThick
                     
                 End If
             Next k
@@ -189,6 +189,7 @@ Sub Copy_Paste_Cards_to_Sheets()
 
 Application.Goto Reference:=Sheets("SHEET CREATOR").Range("A1")
 End Sub
+
 
 
 
