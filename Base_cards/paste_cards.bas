@@ -129,6 +129,18 @@ Sub Copy_Paste_Cards_to_Sheets()
 
         'fixes fonts below
         Range("M" + r2 + ":T" + r).NumberFormat = "$#,##0"
+        Range("A" + ":T").Font.Name = "Calibri"
+
+        'adds orange highlight to cards
+        Range("M" + r2 + ":T" + r2).Interior.ColorIndex = 44
+
+        'center all cells where bidders will type
+        Range("M" + ":T").HorizontalAlignment = xlCenter
+        
+        'autofit all rows on cards
+        'Range("A:A").Columns.AutoFit
+        
+
         
 
 
@@ -189,6 +201,7 @@ Sub Copy_Paste_Cards_to_Sheets()
 
 Application.Goto Reference:=Sheets("SHEET CREATOR").Range("A1")
 End Sub
+
 
 
 
