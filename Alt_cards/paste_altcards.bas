@@ -6,7 +6,7 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
     Dim x As Integer
     Application.ScreenUpdating = False
     ' Set numrows = number of rows of data.
-    NumRows = Range("N1", Range("N1").End(xlDown)).Rows.Count
+    NumRows = Range("M1", Range("M1").End(xlDown)).Rows.Count
     'Debug.Print NumRows
     ' Select cell a1.
     'Range("A1").Select
@@ -15,7 +15,7 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
     Dim arr() As String
     For x = 1 To NumRows
         Sheets("SHEET CREATOR").Select
-        y = "N" + CStr(x)
+        y = "M" + CStr(x)
         Range(y).Select
         ' Insert your code here.
         ' Selects cell down 1 row from active cell.
@@ -126,10 +126,15 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
         Range("A" + r5 + ":T" + r).BorderAround xlContinuous, xlThick
         Range("A" + r5 + ":J" + r).BorderAround xlContinuous, xlThick
         Range("K" + r + ":T" + r).BorderAround xlContinuous, xlThick
-        Range("A:T").Interior.Color = RGB(0, 255, 0)
+        Range("A:T").Interior.Color = RGB(171, 255, 171)
 
         'fixes fonts below
         Range("M" + r2 + ":T" + r).NumberFormat = "$#,##0"
+        Range("A" + ":T").Font.Name = "Calibri"
+        'center all cells where bidders will type
+        Range("M" + ":T").HorizontalAlignment = xlCenter
+
+
 
 
 
@@ -177,10 +182,18 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
                     Range("K" + (CStr(n3)) + ":L" + (CStr(n3))).NumberFormat = "$#,##0"
                     Range("K" + (CStr(n2)) + ":L" + (CStr(n2))).BorderAround xlContinuous, xlThick
                     Range("K" + (CStr(n3)) + ":L" + (CStr(n3))).BorderAround xlContinuous, xlThick
-
-
                 End If
             Next k
+'            For Each w In rng1.Cells
+'                If w.Value <> "" And k.Value = "Description:" Then
+'                    v = w.Row
+'                    Debug.Print v
+'
+'
+'
+'
+'                End If
+'            Next w
 
         Dim rng As Range
         Set rng = Range("K12:K100000") ' Identify your range
@@ -193,6 +206,8 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
 
                 End If
             Next c
+
+            
 
 
         Application.ScreenUpdating = True
@@ -210,4 +225,5 @@ end1:
 
 Application.Goto Reference:=Sheets("SHEET CREATOR").Range("A1")
 End Sub
+
 
