@@ -49,6 +49,9 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
     Dim arr3() As String
     Dim arr4() As String
     Dim arr5() As String
+    Dim rng2 As Range
+        Set rng2 = Range("A12:A100000") ' Identify your range
+        n = 0
     For Each cel In SrchRng
         If InStr(1, cel.Value, "DESCRIPTION") > 0 Then
 
@@ -94,22 +97,22 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
 
 
     Next cel
-    Dim total As Integer
-    For n = 0 To (NumRows - 1)
-        Sheets("ALT PHASE CARD DUMP").Select
-        r = CStr(arr3(n + 1)) 'Cell to put total from sum formula
-        r1 = CStr(arr2(n + 1)) 'Lower bound of range to sum
-        r2 = CStr(arr4(n + 10)) 'Upper bound of range to sum
-        Range("M" + r).Value = "=Sum(M" + r1 + ":M" + r2 + ")"
-        Range("N" + r).Value = "=Sum(N" + r1 + ":N" + r2 + ")"
-        Range("O" + r).Value = "=Sum(O" + r1 + ":O" + r2 + ")"
-        Range("P" + r).Value = "=Sum(P" + r1 + ":P" + r2 + ")"
-        Range("Q" + r).Value = "=Sum(Q" + r1 + ":Q" + r2 + ")"
-        Range("R" + r).Value = "=Sum(R" + r1 + ":R" + r2 + ")"
-        Range("S" + r).Value = "=Sum(S" + r1 + ":S" + r2 + ")"
-        Range("T" + r).Value = "=Sum(T" + r1 + ":T" + r2 + ")"
-
-    Next
+'    Dim total As Integer
+'    For n = 0 To (NumRows - 1)
+'        Sheets("ALT PHASE CARD DUMP").Select
+'        r = CStr(arr3(n + 1)) 'Cell to put total from sum formula
+'        r1 = CStr(arr2(n + 1)) 'Lower bound of range to sum
+'        r2 = CStr(arr4(n + 10)) 'Upper bound of range to sum
+'        Range("M" + r).Value = "=Sum(M" + r1 + ":M" + r2 + ")"
+'        Range("N" + r).Value = "=Sum(N" + r1 + ":N" + r2 + ")"
+'        Range("O" + r).Value = "=Sum(O" + r1 + ":O" + r2 + ")"
+'        Range("P" + r).Value = "=Sum(P" + r1 + ":P" + r2 + ")"
+'        Range("Q" + r).Value = "=Sum(Q" + r1 + ":Q" + r2 + ")"
+'        Range("R" + r).Value = "=Sum(R" + r1 + ":R" + r2 + ")"
+'        Range("S" + r).Value = "=Sum(S" + r1 + ":S" + r2 + ")"
+'        Range("T" + r).Value = "=Sum(T" + r1 + ":T" + r2 + ")"
+'
+'    Next
 
     For T = 0 To (NumRows - 1)
         Sheets("ALT PHASE CARD DUMP").Select
@@ -134,11 +137,19 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
         'center all cells where bidders will type
         Range("M" + ":T").HorizontalAlignment = xlCenter
 
-
-
-
-
     Next
+
+    For Each c In rng2.Cells
+        If c.Value <> "" And c.Value = "ALT" Then '<--- Will search if the cell is not empty and not equal to phrase. If you want to check empty cells too remove c.value <> ""
+            n = c.Row
+                'adds orange highlight to cards
+                Range("M" + n + ":T" + n).Interior.ColorIndex = 44
+        End If
+    Next c
+
+
+
+
     
     For j = 0 To (NumRows - 1)
         Sheets("ALT PHASE CARD DUMP").Select
@@ -149,20 +160,31 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
         k = 0
         pen = 0
         d = 0
+        v = 0
+        v1 = 0
+        v2 = 0
         With Sheets(arr(j + 1))
             k = .Cells(.Rows.Count, 7).End(xlUp).Row
-            k = k + 2
+            k = k + 5
             ReDim Preserve arrk(pen)
             arrk(pen) = k
             k = pen + 1
+            'Debug.Print arrk(pen)
         End With
+        w = CStr(arrk(d))
+        w1 = CStr(arrk(d) + 9)
+        v = CStr(arrk(d) + 3)
+        v1 = CStr(arrk(d) + 9)
+        v2 = CStr(arrk(d) + 10)
         Range("A" + CStr(arrk(d))).Select
         d = d + 1
         Range("M:T").ColumnWidth = 14
         ActiveSheet.Paste
-        Range("A3:T5").BorderAround xlContinuous, xlMedium
-        ActiveSheet.Range("A3:T10").BorderAround xlContinuous, xlThick
-        ActiveSheet.Range("A3:T11").BorderAround xlContinuous, xlThick
+        'Range("A3:T5").BorderAround xlContinuous, xlMedium
+        'ActiveSheet.Range("A3:T10").BorderAround xlContinuous, xlThick
+        'ActiveSheet.Range("A3:T11").BorderAround xlContinuous, xlThick
+        'ActiveSheet.Range("A" + v + ":T" + v1).BorderAround xlContinuous, xlThick
+        'ActiveSheet.Range("A" + v + ":T" + v2).BorderAround xlContinuous, xlThick
         Dim rng1 As Range
         Set rng1 = Range("A12:A100000") ' Identify your range
         n = 0
@@ -184,16 +206,12 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
                     Range("K" + (CStr(n3)) + ":L" + (CStr(n3))).BorderAround xlContinuous, xlThick
                 End If
             Next k
-'            For Each w In rng1.Cells
-'                If w.Value <> "" And k.Value = "Description:" Then
-'                    v = w.Row
-'                    Debug.Print v
-'
-'
-'
-'
-'                End If
-'            Next w
+        'Debug.Print arrk(d) + 1
+        'removes excess rows
+        Range("A" + v + ":A" + w1).EntireRow.Delete
+'        Debug.Print v
+'        Debug.Print v1
+'        Debug.Print v2
 
         Dim rng As Range
         Set rng = Range("K12:K100000") ' Identify your range
@@ -203,9 +221,21 @@ Sub Copy_Pase_Alt_or_Phase_Cards()
 
                     d = c.Row
                     Rows(d).EntireRow.Delete
-
+                    'Debug.Print d
                 End If
             Next c
+            
+'        Dim rng3 As Range
+'        Set rng3 = Range("A1:A100000") ' Identify your range
+'            'highlight alternate rows
+'            For Each c In rng3.Cells
+'                If c.Value <> "" And c.Value = "ALTERNATE 01: ADD 2ND LEVEL" Then '<--- Will search if the cell is not empty and not equal to phrase. If you want to check empty cells too remove c.value <> ""
+'
+'                    d = c.Row
+'                    Debug.Print d
+'
+'                End If
+'            Next c
 
             
 
@@ -217,13 +247,15 @@ addsheet:
         Sheets.Add.Name = arr(j + 1)
         Resume Next
 end1:
-        MsgBox ("Alternates Bid Cards are now copied to existing sheets. If new scopes were added, please move those new sheets to follow numerical order of existing sheets.")
-       
+        MsgBox ("Alternate Bid Cards are now copied to existing sheets. If new scopes were added, move those new sheets to follow numerical order of existing sheets.")
+
 
 
 
 
 Application.Goto Reference:=Sheets("SHEET CREATOR").Range("A1")
 End Sub
+
+
 
 
