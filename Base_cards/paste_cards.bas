@@ -1,5 +1,5 @@
 Sub Copy_Paste_Cards_to_Sheets()
-
+                                     
 
 'LOOP FOR CYCLING THROUGH SHEET NAMES
     Sheets("SHEET CREATOR").Select
@@ -128,8 +128,8 @@ Sub Copy_Paste_Cards_to_Sheets()
         Range("K" + r + ":T" + r).BorderAround xlContinuous, xlThick
 
         'fixes fonts below
-        Range("M" + r2 + ":T" + r).NumberFormat = "$#,##0"
-        Range("A" + ":T").Font.Name = "Calibri"
+        Range("M" + r2 + ":T" + r).NumberFormat = "#,###"
+        
 
         'adds orange highlight to cards
         Range("M" + r2 + ":T" + r2).Interior.ColorIndex = 44
@@ -139,7 +139,7 @@ Sub Copy_Paste_Cards_to_Sheets()
         
         'autofit all rows on cards
         'Range("A:A").Columns.AutoFit
-        
+        Range("A" + ":T").Font.Name = "Calibri"
 
         
 
@@ -151,7 +151,7 @@ Sub Copy_Paste_Cards_to_Sheets()
         Sheets(arr(j + 1)).Select
         'Call AddOutsideBorders(ActiveWorkbook.Worksheets(arr(j + 1)).Range("A3:S10"))
         Range("A1").Select
-        Range("M:T").ColumnWidth = 14
+        Range("M:T").ColumnWidth = 20
         ActiveSheet.Paste
         Range("A3:T5").BorderAround xlContinuous, xlMedium
         ActiveSheet.Range("A3:T10").BorderAround xlContinuous, xlThick
@@ -163,20 +163,50 @@ Sub Copy_Paste_Cards_to_Sheets()
                 If k.Value <> "" And k.Value = "CARD TOTAL MC2:" Then '<--- Will search if the cell is not empty and not equal to phrase. If you want to check empty cells too remove c.value <> ""
                     'MsgBox (c.Address & "found") '<---- Your code goes here
                     n = k.Row
-                    n2 = n + 8
+                    n2 = n + 10
                     n3 = n + 9
+                    n4 = n + 11
+                    n5 = n + 3
+                    n6 = n + 8
+                    n7 = n + 4
                     'Debug.Print "B" + n2
-                    Range("G" + (CStr(n2))).Value = "Subcontractor in Add/Cut is:"
-                    Range("G" + (CStr(n3))).Value = "Bid Amount in Add/Cut is:"
-                    Range("M" + (CStr(n2))).Value = "(Only Bid Captain fills in, let them know if this does not match bid card.)"
-                    Range("M" + (CStr(n3))).Value = "(Only Bid Captain fills in, let them know if this does not match bid card.)"
-                    Range("G" + (CStr(n2))).Font.Size = "14"
-                    Range("G" + (CStr(n3))).Font.Size = "14"
-                    Range("K" + (CStr(n2)) + ":L" + (CStr(n2))).Merge
-                    Range("K" + (CStr(n3)) + ":L" + (CStr(n3))).Merge
-                    Range("K" + (CStr(n3)) + ":L" + (CStr(n3))).NumberFormat = "$#,##0"
-                    Range("K" + (CStr(n2)) + ":L" + (CStr(n2))).BorderAround xlContinuous, xlThick
-                    Range("K" + (CStr(n3)) + ":L" + (CStr(n3))).BorderAround xlContinuous, xlThick
+                    Range("H" + (CStr(n2))).Value = "Subcontractor Name/Bid Amount:"
+                    Range("H" + (CStr(n2))).Font.Name = "Calibri"
+                    ''Range("G" + (CStr(n3))).Value = "Bid Amount in Add/Cut is:"
+                    Range("O" + (CStr(n2))).Value = "(Only Bid Captain fills in, let them know if this does not match bid card.)"
+                    Range("O" + (CStr(n4))).Value = "(If Bid Captain chooses to copy/paste Sub Name/Bid Amount, Bid Captain should paste only ""Values"" in Add/Cut)"
+                    Range("O" + (CStr(n2))).Font.Name = "Calibri"
+                    Range("O" + (CStr(n4))).Font.Name = "Calibri"
+                    ''Range("M" + (CStr(n3))).Value = "(Only Bid Captain fills in, let them know if this does not match bid card.)"
+                    Range("H" + (CStr(n2))).Font.Size = "14"
+                    ''Range("G" + (CStr(n3))).Font.Size = "14"
+                    ''Range("K" + (CStr(n2)) + ":L" + (CStr(n2))).Merge
+                    ''Range("K" + (CStr(n3)) + ":L" + (CStr(n3))).Merge
+                    Range("N" + (CStr(n2)) + ":N" + (CStr(n2))).NumberFormat = "#,###"
+                    Range("M" + (CStr(n2)) + ":M" + (CStr(n2))).Interior.Color = RGB(255, 255, 153)
+                    Range("N" + (CStr(n2)) + ":N" + (CStr(n2))).Interior.Color = RGB(255, 255, 153)
+                    Range("M" + (CStr(n2)) + ":M" + (CStr(n2))).Font.Color = RGB(0, 0, 255)
+                    Range("N" + (CStr(n2)) + ":N" + (CStr(n2))).Font.Color = RGB(0, 0, 255)
+                    Range("M" + (CStr(n2)) + ":M" + (CStr(n2))).Borders(xlEdgeRight).LineStyle = xlContinuous
+                    Range("M" + (CStr(n2)) + ":M" + (CStr(n2))).Borders(xlEdgeLeft).LineStyle = xlContinuous
+                    Range("N" + (CStr(n2)) + ":N" + (CStr(n2))).Borders(xlEdgeRight).LineStyle = xlContinuous
+                    Range("M" + (CStr(n2)) + ":M" + (CStr(n2))).Font.Bold = True
+                    Range("N" + (CStr(n2)) + ":N" + (CStr(n2))).Font.Bold = True
+                    Range("M" + (CStr(n3)) + ":N" + (CStr(n3))).Borders(xlEdgeBottom).LineStyle = xlContinuous
+                    Range("M" + (CStr(n4)) + ":N" + (CStr(n4))).Borders(xlEdgeTop).LineStyle = xlContinuous
+                    Range("N" + (CStr(n2)) + ":N" + (CStr(n2))).HorizontalAlignment = xlRight
+                    Range("M" + (CStr(n2)) + ":M" + (CStr(n2))).Font.Size = 11
+                    Range("N" + (CStr(n2)) + ":N" + (CStr(n2))).Font.Size = 11
+                    Range("N" + (CStr(n2)) + ":N" + (CStr(n2))).Font.Name = "Calibri"
+                    Range("M" + (CStr(n2)) + ":M" + (CStr(n2))).Font.Name = "Calibri"
+                    Range("M" + (CStr(n5))).Value = "Sub Notes:"
+                    Range("M" + (CStr(n5))).Font.Name = "Calibri"
+                    'Range("M" + (CStr(n7)) + ":T" + (CStr(n6))).BorderAround xlContinuous, xlHairline
+                    Range("M" + (CStr(n7)) + ":T" + (CStr(n6))).Borders.LineStyle = xlDot
+                    Range("M" + (CStr(n7)) + ":T" + (CStr(n6))).WrapText = True
+                    
+                    
+                
                     
                 End If
             Next k
@@ -193,6 +223,9 @@ Sub Copy_Paste_Cards_to_Sheets()
                 End If
             Next c
         
+        Rows("6:6").Select
+        ActiveWindow.FreezePanes = True
+                    
         Application.ScreenUpdating = True
     Next
     
